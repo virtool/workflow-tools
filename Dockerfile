@@ -32,12 +32,12 @@ RUN wget https://www.bioinformatics.babraham.ac.uk/projects/fastqc/fastqc_v0.11.
 FROM debian:buster as pigz
 WORKDIR /build
 RUN apt-get update && apt-get install -y make gcc zlib1g-dev wget
-RUN wget https://zlib.net/pigz/pigz-2.6.tar.gz && \
-    tar -xzvf pigz-2.6.tar.gz && \
-    cd pigz-2.6 && \
+RUN wget https://zlib.net/pigz/pigz-2.7.tar.gz && \
+    tar -xzvf pigz-2.7.tar.gz && \
+    cd pigz-2.7 && \
     make
 
-FROM python:3.8-buster as jre
+FROM python:3.11.0-buster as jre
 RUN apt-get update && \
     apt-get install -y --no-install-recommends default-jre && \
     rm -rf /var/lib/apt/lists/* && \
@@ -48,10 +48,8 @@ COPY --from=bowtie /build/bowtie2/* /usr/local/bin/
 COPY --from=debian /build/hmmer /opt/hmmer
 COPY --from=debian /build/skewer /usr/local/bin/
 COPY --from=fastqc /build/FastQC /opt/fastqc
-COPY --from=pigz /build/pigz-2.6/pigz /usr/local/bin/pigz
-
+COPY --from=pigz /build/pigz-2.7/pigz /usr/local/bin/pigz
 RUN chmod ugo+x /opt/fastqc/fastqc && \
     ln -fs /opt/fastqc/fastqc /usr/local/bin/fastqc && \
     for file in `ls /opt/hmmer/bin`; do ln -fs /opt/hmmer/bin/${file} /usr/local/bin/${file};  done
-
 ENV PATH $PATH:/root/.local/bin
