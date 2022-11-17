@@ -37,7 +37,7 @@ RUN wget https://zlib.net/pigz/pigz-2.7.tar.gz && \
     cd pigz-2.7 && \
     make
 
-FROM python:3.11.0-buster as jre
+FROM python:3.10-buster as jre
 RUN apt-get update && \
     apt-get install -y --no-install-recommends default-jre && \
     rm -rf /var/lib/apt/lists/* && \
