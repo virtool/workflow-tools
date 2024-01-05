@@ -17,10 +17,10 @@ RUN wget http://eddylab.org/software/hmmer/hmmer-3.2.1.tar.gz && \
 # Bowtie2
 FROM alpine:latest as bowtie
 WORKDIR /build
-RUN wget https://github.com/BenLangmead/bowtie2/releases/download/v2.3.2/bowtie2-2.3.2-legacy-linux-x86_64.zip && \
-    unzip bowtie2-2.3.2-legacy-linux-x86_64.zip && \
+RUN wget https://github.com/BenLangmead/bowtie2/releases/download/v2.5.2/bowtie2-2.5.2-linux-x86_64.zip && \
+    unzip bowtie2-2.5.2-legacy-linux-x86_64.zip && \
     mkdir bowtie2 && \
-    cp bowtie2-2.3.2-legacy/bowtie2* bowtie2
+    cp bowtie2-2.5.2-legacy/bowtie2* bowtie2
 
 # FastQC
 FROM alpine:latest as fastqc
@@ -37,7 +37,7 @@ RUN wget https://zlib.net/pigz/pigz-2.7.tar.gz && \
     cd pigz-2.7 && \
     make
 
-FROM python:3.10-buster as jre
+FROM python:3.12-buster as jre
 RUN apt-get update && \
     apt-get install -y --no-install-recommends default-jre && \
     rm -rf /var/lib/apt/lists/* && \
