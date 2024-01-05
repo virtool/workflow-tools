@@ -17,7 +17,7 @@ RUN wget http://eddylab.org/software/hmmer/hmmer-3.2.1.tar.gz && \
 # Bowtie2
 FROM alpine:latest as bowtie
 WORKDIR /build
-RUN wget hhttps://github.com/BenLangmead/bowtie2/releases/download/v2.5.2/bowtie2-2.5.2-linux-x86_64.zip && \
+RUN wget https://github.com/BenLangmead/bowtie2/releases/download/v2.5.2/bowtie2-2.5.2-linux-x86_64.zip && \
     unzip bowtie2-2.5.2-legacy-linux-x86_64.zip && \
     mkdir bowtie2 && \
     cp bowtie2-2.5.2-legacy/bowtie2* bowtie2
